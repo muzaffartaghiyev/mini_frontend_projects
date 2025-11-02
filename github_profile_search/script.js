@@ -12,7 +12,11 @@ async function getUser(username){
         createUserCard(data)
 
     }catch(err){
-        createErrorCard()
+
+        if(err.response.status == 404){
+            createErrorCard(`No Profile found with username '${username}'`)
+        }
+        
     }
 }
 
@@ -56,3 +60,14 @@ form.addEventListener('submit',(e)=>{
     }
 
 })
+
+
+function createErrorCard(message){
+    const cardHTML = `
+        <div class='card'>
+            <h1>${message}</h1>
+        </div>
+    `
+
+    main.innerHTML = cardHTML
+}
