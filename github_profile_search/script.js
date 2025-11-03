@@ -52,8 +52,6 @@ function createUserCard(user){
                 </ul>
 
                 <div id="repos">
-
-                    <a href="#" class="repo">Repo 1</a>
                 </div>
             </div>
         </div>
@@ -72,8 +70,19 @@ function createErrorCard(message){
     main.innerHTML = cardHTML
 }
 
-function addReposToCard(data){
-    
+function addReposToCard(repos){
+    const reposEl = document.getElementById('repos')
+
+    repos.slice(0,10).forEach(repo=>{
+        const repoLink = document.createElement('a')
+
+        repoLink.classList.add('repo')
+        repoLink.href = repo.html_url
+        repoLink.target = '_blank'
+        repoLink.innerText = repo.name
+
+        reposEl.appendChild(repoLink)
+    })
 }
 
 
