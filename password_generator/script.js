@@ -1,4 +1,12 @@
-
+const resultEl = document.getElementById("result") 
+const lengthEl = document.getElementById("length") 
+const uppercaseEl = document.getElementById("uppercase") 
+const lowercaseEl = document.getElementById("lowercase") 
+const numbersEl = document.getElementById("numbers") 
+const symbolsEl = document.getElementById("symbols") 
+const clipboardBtn = document.getElementById("clipboard") 
+const generateBtn = document.getElementById("generate") 
+const warningEl = document.querySelector(".warning")
 
 const randomFunc = {
     lower:getRandomLower,
@@ -6,6 +14,50 @@ const randomFunc = {
     number:getRandomNumber,
     symbol:getRandomSymbol
 }
+
+generateBtn.addEventListener("click", ()=>{
+    // + converts it to a number
+    const length = +lengthEl.value
+    const hasLower = lowercaseEl.checked
+    const hasUpper = uppercaseEl.checked
+    const hasNumber = numbersEl.checked
+    const hasSymbol = symbolsEl.checked
+
+    resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length)
+
+})
+
+
+function generatePassword(lower, upper, number, symbol, length){
+    let generatedPassword = ''
+
+    const typesCount = lower + upper + number + symbol
+    const typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0])
+
+    if(typesCount === 0){
+        warningEl.style.display = "block"
+        return ''
+    }
+    else{
+        warningEl.style.display = "none"
+
+        for(let i=0; i < length; i+=typesCount){
+            typesArr.forEach(type => {
+                const funcName = Object.keys(type)[0]
+                generatedPassword += randomFunc[funcName]()
+            })
+        }
+    }
+
+    const finalPassword = generatedPassword.slice(0,length)
+
+    return finalPassword
+}
+
+
+
+
+
 
 function getRandomLower(){
     return String.fromCharCode(Math.floor(Math.random() * 26) + 97 )
