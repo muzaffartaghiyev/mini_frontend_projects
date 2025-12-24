@@ -2,6 +2,7 @@
 import { marked } from "https://cdnjs.cloudflare.com/ajax/libs/marked/16.3.0/lib/marked.esm.min.js";
 
 const addBtn = document.getElementById('add')
+const deleteAllBtn = document.getElementById("delete-all")
 
 const notes = JSON.parse(localStorage.getItem("notes"))
 
@@ -10,7 +11,6 @@ if(notes){
 }
 
 addBtn.addEventListener("click" , () => addNewNote())
-
 
 function addNewNote(text = ''){
     const note = document.createElement('div')
@@ -39,7 +39,7 @@ function addNewNote(text = ''){
 
     deleteBtn.addEventListener("click", ()=> {
         note.remove()
-        
+
         updateLS()
     })
 
@@ -68,3 +68,13 @@ function updateLS(){
 
     localStorage.setItem('notes',JSON.stringify(notes))
 }
+
+deleteAllBtn.addEventListener("click", () => {
+    const isConfirmed = confirm("Are you sure to delete all notes?")
+
+    if(isConfirmed){
+        localStorage.clear()
+        location.reload()
+    }
+
+})

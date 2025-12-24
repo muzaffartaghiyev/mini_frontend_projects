@@ -14,16 +14,25 @@ body{
     padding:3rem;
 }
 
-.add{
+.add, .delete-all{
     position: fixed;
-    top: 5.5rem;
-    right: 1rem;
-    background-color: #9ec862;
     border:none;
     border-radius: 3px;
     padding:0.5rem 1rem;
     color: white;
     cursor: pointer;
+}
+
+.add{
+    background-color: #9ec862;
+    top: 5.5rem;
+    right: 1rem;
+}
+
+.delete-all{
+    background-color: rgb(221, 77, 77);
+    top: 1.5rem;
+    left: 1rem;
 }
 
 .note{
